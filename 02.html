@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <style>
+        *{
+            padding: 0;margin: 0;
+        }
+        .active {
+            color: white;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="demo2">
+    <demo-table :info="list1" :info2="Contents1" ></demo-table>
+    <br/>
+    <demo-table :info="list2" :info2="Contents2" ></demo-table>
+</div>
+<script>
+    var DemoTable={
+        template:`
+        <div :style="div1">
+
+        <div :style="div2">
+          <ul :style="ul">
+            <li v-for="(item1,index) in info" :key="index"  :class="{active:num==index}" @click="get(index)" :style="list">
+              {{item1}}
+            </li>
+          </ul>
+        </div>
+
+        <div>
+      <div v-for='(item2,index) in info2' v-show="index == num">
+        {{item2}}
+      </div>
+    </div>
+
+  </div>
+        `,
+        data(){
+            return{
+                num: 0,
+                div1:'border:2px solid #33546a;width:900px;height:200px; font-size: 18px;',
+                div2:'color:black;width:900px;height:40px;',
+                ul: 'width: 100%;display: flex;list-style: none; ;line-height: 40px;border:1px solid #33546a;',
+                list:'flex: 1;text-align: center;',
+
+            }
+        },
+        methods:{
+            get(index) {
+                this.num = index;
+            }
+        },
+        props:['info','info2']
+    }
+
+    new Vue({
+        el:'#demo2',
+        data(){
+            return{
+                list1: ["111", "222", "333"],
+                Contents1: [
+                    "内容1",
+                    "内容2",
+                    "内容3"],
+                list2: ["1", "2", "3"],
+                Contents2: [
+                    "qwe",
+                    "asd",
+                    "zxc"],
+            }
+        },
+
+        components:{DemoTable}
+    })
+</script>
+</body>
+</html>

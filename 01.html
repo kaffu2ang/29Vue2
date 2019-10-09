@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+
+</head>
+<body>
+<div id="demo1">
+    <my-button></my-button>
+</div>
+<script>
+    Vue.component('MyButton',{
+        template:`<div><button @click="add" :style="button">+</button><input v-focus type="text" v-html="msg" v-model="amount" :style="text"><button @click="cut" :style="button">-</button></div>`,
+        data(){
+            return{
+                amount:1,
+                button: 'background:blue;color:white;border:2px solid blue; width:30px;height:35px',
+                text: 'border:2px solid blue; width:60px;height:30px;padding-left:10px'
+            }
+        },
+        methods:{
+            add(){
+                this.amount++;
+            },
+           cut(){
+                if(this.amount>1)
+                this.amount--;
+                else
+                alert('数量为1，不能再减')
+            }
+        },
+        directives: {
+            focus:function (el) {
+                el.focus();
+            }
+        },
+        computed:{
+            msg(){
+                var reg = new RegExp(/^[1-9]\d*$/);
+                if (!reg.test(this.amount)){
+                alert('输入数据不合法');
+                focus();
+                this.amount=1;
+            }
+                else if(this.amount<0){
+                alert('输入数据不合法');
+                focus();
+                this.amount=1;
+            }
+            }
+        }
+    })
+    new Vue({
+        el:'#demo1'
+    })
+</script>
+</body>
+</html>
